@@ -63,7 +63,7 @@ class NotifyArea():
 		self.start_pos = start_pos
 
 	def draw(self, screen):
-		background_image = utils.load_image("notify_area.png")
+		background_image = utils.load_image("../img/notify_area.png")
 		screen.blit(background_image, (self.start_pos[0], self.start_pos[1]))
 		
 		font = pygame.font.SysFont("Courier New",18)
