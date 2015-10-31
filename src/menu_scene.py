@@ -1,11 +1,10 @@
 # -*- encoding: utf-8 -*-
 import scene
 
-class PauseScene(scene.Scene):
+class MenuScene(scene.Scene):
 
-    def __init__(self, director, current_scene):
+    def __init__(self, director, node):
         scene.Scene.__init__(self, director)
-		
 
     def update(self):
         pass
@@ -15,6 +14,6 @@ class PauseScene(scene.Scene):
 
     def draw(self, screen):
         pass
-	
+
 	def quit(self):
 		self.director.quit()

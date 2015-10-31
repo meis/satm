@@ -7,12 +7,12 @@ from pygame.locals import *
 WIDTH = 790
 HEIGHT = 310
 
-class stage:	
+class stage:
 	direction = "right"
 	tick_time = 800
 	min_tick_time = 150
 
-	maps =[		
+	maps =[
 ["#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#","#"],
 ["#","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","#"],
 ["#","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","#"],
@@ -53,7 +53,6 @@ class stage:
 		self.snake = [[33,10],[32,10],[32,11],[31,11],[31,12]]
 		self.snake = [[33,10]]
 		self.eating = False
-		
 
 		add_x = 0
 		add_y = 0
@@ -67,19 +66,19 @@ class stage:
 		else:
 			add_y = -1
 
-		# Snake starts with lenght 3.		
+		# Snake starts with lenght 3.
 		self.snake.append([(self.snake[0][0] + add_x), (self.snake[0][1] + add_y)])
 		self.snake.append([(self.snake[1][0] + add_x), (self.snake[1][1] + add_y)])
-				
+
 	def print_background(self, screen):
 		background_image = load_image('background.png')
-		screen.blit(background_image, (0, 0))	
+		screen.blit(background_image, (0, 0))
 
 		for i in range(len(self.maps)):
 			for j in range(len(self.maps[i])):
 				if self.maps[i][j] != '0':
 					screen.blit(self.print_sprite(self.maps[i][j]), ((j)*10 , (i)*10))
-					
+
 	def print_snake(self, screen):
 
 		# Print snake's head.
@@ -87,7 +86,6 @@ class stage:
 		head_part = head_part + self.direction
 		screen.blit(self.print_snake_part(head_part), (self.snake[0][0]*10, self.snake[0][1]*10))
 
-				
 		# Print snake's body.
 		for i in range(1,(len(self.snake)-1)):
 			body_part = "body-"
@@ -97,7 +95,7 @@ class stage:
 					body_part = body_part + "up"
 				else:
 					body_part = body_part + "down"
-				
+
 			elif self.snake[i][0] > self.snake[i-1][0]:
 				body_part = body_part + "left"
 			else:
@@ -108,7 +106,7 @@ class stage:
 					body_part = body_part + "-up"
 				else:
 					body_part = body_part + "-down"
-				
+
 			elif self.snake[i][0] > self.snake[i+1][0]:
 				body_part = body_part + "-left"
 			else:
@@ -138,11 +136,9 @@ class stage:
 #			for j in range(len(self.grid[i])):
 #				if self.grid[i][j] != '0':
 #					screen.blit(self.print_sprite(self.grid[i][j]), ((j)*10 , (i)*10))
-		
 
 	def print_snake_part(self, part):
 		#print part
-		
 		if part == 'head-right':						#> - head
 			img = load_image('snake-head.png', True)
 		elif part == 'head-left':						#< - head
@@ -194,12 +190,10 @@ class stage:
 		elif self.direction == "right" and direction != "left":
 			self.direction = direction
 
-		#print self.direction
-	
 	def move_snake(self):
 		new_x = self.snake[0][0]
 		new_y = self.snake[0][1]
-		
+
 		if self.direction == "up":
 			new_y = new_y - 1
 		elif self.direction == "down":
@@ -213,15 +207,15 @@ class stage:
 
 		if self.eating != True:
 			self.snake = self.snake[0:len(self.snake)-1]
-		else:			
+		else:
 			self.eating = False
-		
+
 		# Snake vs Snake.
 		if self.snake.count([new_x, new_y]) > 1:
 			print "Snake vs Snake"
 			sys.exit(0)
 
-		# Snake vs Block.		
+		# Snake vs Block.
 		if self.maps[self.snake[0][1]][self.snake[0][0]] == "#":
 			print "Contra block"
 			sys.exit(0)
@@ -234,10 +228,9 @@ class stage:
 				self.tick_time = self.tick_time - 100
 
 	def print_sprite(self, code):
-	
-		if code == '#':								## - block
+		if code == '#':							## - block
 			img = load_image('block.png')
-		elif code == '2':								#@ - food
+		elif code == '2':						#@ - food
 			img = load_image('food.png', True)
 		else:
 			img = load_image('fail.png')
@@ -260,17 +253,16 @@ def load_image(filename, transparent=False):
 
 def main():
 	screen = pygame.display.set_mode((WIDTH, HEIGHT))
-	pygame.display.set_caption("Snake!")    
+	pygame.display.set_caption("Snake!")
 	stage1 = stage()
 
 	clock = pygame.time.Clock()
 	x = 0
-	#moves = ["right", "up", "right", "up" , "right"]
 
 	prev_clock = clock.tick()
 	curr_clock = prev_clock
 	direction = "right"
-	
+
 	while True:
 		for eventos in pygame.event.get():
 			if eventos.type == QUIT:
@@ -291,28 +283,20 @@ def main():
 
 		if keys[K_LEFT]:
 			direction = "left"
-		
 
 		stage1.blit(screen)
 		pygame.display.flip()
-		
+
 		curr_clock = curr_clock + clock.tick()
 
 		if curr_clock - prev_clock > stage1.tick_time:
 			prev_clock = clock.tick()
 			curr_clock = 0
-			stage1.change_direction(direction)	
-			stage1.move_snake()	
-			#x = (x + 1) % 5
-#		print "tick"
-		
-		
-		#pygame.time.delay(800)
+			stage1.change_direction(direction)
+			stage1.move_snake()
 
 	return 0
 
 if __name__ == '__main__':
 	pygame.init()
 	main()
-
-

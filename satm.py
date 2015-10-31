@@ -2,11 +2,11 @@
 
 import pygame
 import sys
-import scene, menu_scene, pause_scene, stage_scene, config
+import src.scene, src.menu_scene, src.pause_scene, src.stage_scene, config
 
 from pygame.locals import *
 
-class Director:    
+class Director:
 
 	def __init__(self, height, width, name):
 		self.scene 		= None
@@ -46,7 +46,7 @@ class Director:
 
 def main():
 	game = Director(config.HEIGHT, config.WIDTH, config.NAME)
-	main_menu = stage_scene.StageScene(game, '2')
+	main_menu = src.stage_scene.StageScene(game, '2')
 	game.change_scene(main_menu)
 	game.loop()
 
