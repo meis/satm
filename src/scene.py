@@ -12,6 +12,6 @@ class Scene:
 
     def draw(self, screen):
         raise NotImplemented("Tiene que implementar el método draw.")
-	
+
 	def quit(self):
 		self.director.quit()

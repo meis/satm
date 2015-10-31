@@ -14,6 +14,6 @@ class MenuScene(scene.Scene):
 
     def draw(self, screen):
         pass
-	
+
 	def quit(self):
 		self.director.quit()

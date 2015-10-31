@@ -19,4 +19,4 @@ def print_sprite(code):
 	if config.SPRITES[code]['angle'] != 0:
 		img = pygame.transform.rotate(img, config.SPRITES[code]['angle'])
 
-	return img	
+	return img
